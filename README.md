@@ -50,12 +50,12 @@ The infrastructure is created in AWS using Terraform.
    ```
 3. cd into the cloned repository.
 4. Go to variables.tf file and change the values as per comments given and Save the file.
-5. Run the following commands in same order
+5. Verify if given cidr blocks in main.tf are available in the AWS account. If not available update cidr blocks.
+6. Run the following commands in same order
     - terraform init
     - terraform plan
     - terraform apply
-
-This will provision the required infrastructure and provides the ALB hostname as the output.
+ 7. Above step will provision the required infrastructure and provides the ALB hostname as the output. Note the hostname.
 
 ### Part 2: Installing the application
 
