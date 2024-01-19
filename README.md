@@ -67,7 +67,7 @@ This is done using ansible.
     - sudo su
     - cd /home
     - git clone https://github.com/msdange/project_assignment_v0
-    - open inventory.ini file and make changes as mentioned in file comments
+    - Go to project_assignment_v0 folder > open inventory.ini file > make changes as mentioned in file comments
     - create .pem key file so that ansible_master instance can ssh into private instance
     - sudo vi ec2key.pem and add key
     - chmod 600 ec2key.pem
