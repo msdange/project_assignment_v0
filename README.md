@@ -48,7 +48,7 @@ The infrastructure is created in AWS using Terraform.
    ```sh
    git clone https://github.com/msdange/project_assignment_v0
    ```
-  and cd into the cloned repository.
+3. cd into the cloned repository.
 4. Go to variables.tf file and change the values as per comments given and Save the file.
 5. Run the following commands in same order
     - terraform init
