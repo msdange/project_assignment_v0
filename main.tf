@@ -254,7 +254,7 @@ resource "aws_launch_configuration" "demo_config" {
   ebs_block_device {
     device_name = "/dev/sdf"
     volume_type = "gp2"
-    volume_size = "52"
+    volume_size = "30"
     iops        = "1500"
     encrypted   = true
   }
@@ -294,9 +294,7 @@ resource "aws_instance" "ansible_master" {
   key_name               = var.instance_key_name
   subnet_id              = aws_subnet.publicsubnetA.id
   vpc_security_group_ids = [aws_security_group.ALB_sg.id]
-  #iam_instance_profile   = "ec2_profile"
-
-  
+    
   user_data = <<-EOF
               #!/bin/bash
               sudo yum update -y
@@ -362,16 +360,13 @@ resource "aws_security_group" "ec2_sg" {
   name        = "ec2_sg"
   description = "Allow http request from LB"
   vpc_id      = aws_vpc.demovpc.id
-  #security_group_id = aws_security_group.LB_sg.id
-  #cidr_ipv4         = aws_vpc.demovpc.cidr_block
-
 
   ingress {
     description = "Allow http request from LB"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"] #"aws_security_group.ALB_sg.id"
+    cidr_blocks = ["10.0.0.0/16"]
   }
 
   ingress {
