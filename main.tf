@@ -2,25 +2,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-data "aws_ami" "latestami" {
-  most_recent = "true"
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"] # Amazon Linux 2 example
-  }
-  filter {
-    name   = "owner-alias"
-    values = ["amazon"] # For Amazon Linux AMIs
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
-
 /* --------- VPC --------- */
 resource "aws_vpc" "demovpc" {
   cidr_block           = "10.0.0.0/16"
@@ -54,7 +35,6 @@ resource "aws_subnet" "privatesubnetB" {
     Name = "privatesubnetB"
   }
 }
-
 
 /* --------- Public Subnet --------- */
 
@@ -223,9 +203,8 @@ resource "aws_lb_listener" "demo_front_end" {
 /* ------- launch configuration and ASG ------- */
 
 resource "aws_launch_configuration" "demo_config" {
-  name = "demo_config"
-  #image_id = var.ami_id   #uncomment this line if you want to test for specific ami. # Ensure to update ami value in varaible file
-  image_id             = data.aws_ami.latestami.id #comment this line if using above line
+  name                 = "demo_config"
+  image_id             = var.ami_id    
   instance_type        = var.instance_type
   key_name             = var.instance_key_name
   security_groups      = [aws_security_group.ec2_sg.id]
@@ -243,7 +222,6 @@ resource "aws_launch_configuration" "demo_config" {
   EOF 
 
   # user_data = filebase64("user_data.sh")
-
 
   root_block_device {
     volume_type = "gp2"
@@ -287,9 +265,8 @@ resource "aws_autoscaling_group" "demo_asg" {
   }
 }
 
-
 resource "aws_instance" "ansible_master" {
-  ami                    = data.aws_ami.latestami.id
+  ami                    = var.ami_id
   instance_type          = var.instance_type
   key_name               = var.instance_key_name
   subnet_id              = aws_subnet.publicsubnetA.id
@@ -308,7 +285,6 @@ resource "aws_instance" "ansible_master" {
   }
 
 }
-
 
 /* ---- Load balancer SG ---- */
 
@@ -428,7 +404,7 @@ resource "aws_cloudwatch_metric_alarm" "test-alarm" {
   namespace           = "AWS/EC2"
   period              = 120
   statistic           = "Average"
-  threshold           = 0.15
+  threshold           = 40
 
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.demo_asg.name

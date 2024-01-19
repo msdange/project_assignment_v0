@@ -4,7 +4,7 @@ variable "aws_region" {
 }
 
 variable "ami_id" {
-  default = "ami-0df435f331839b2d6" # add your region's ami id if want to test for specific ami
+  default = "ami-0df435f331839b2d6" # latest ami # add your region's ami id if want to test for specific ami
 }
 variable "instance_type" {
   default = "t2.micro" # can be changed as per requirement
