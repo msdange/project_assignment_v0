@@ -38,7 +38,9 @@ This assignment is built to host a simple web application in AWS EC2 instance us
 
 1. Clone the repo
  
+   ```sh
    git clone https://github.com/msdange/project_assignment_v0
+   ```
  
 
 <!-- USAGE -->
