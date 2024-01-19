@@ -6,11 +6,11 @@ terraform {
     }
   }
   required_version = "~> 1.3"
-
+/*
   backend "s3" {
     key    = "demo-tfe-backend" #replace with your S3 bucket if want to enable bckend
     bucket = "demo-tfe-backend" #replace with your S3 bucket if want to enable bckend
     region = "us-east-1"        #add region of your choice
   }
 }
-
+*/
