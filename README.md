@@ -5,7 +5,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-Assignment">About The Project</a>
+      <a href="#about-the-Assignment">About The Assignment</a>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -23,7 +23,7 @@
 <!-- ABOUT THE ASSIGNMENT -->
 ## About The Assignment
 
-This assignment is built to host a simple web application in AWS EC2 instance using Ansible and terraform.
+This assignment is created to host a simple web application in AWS EC2 private instance using Ansible and terraform.
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -32,16 +32,15 @@ This assignment is built to host a simple web application in AWS EC2 instance us
 
 * AWS account
 * IAM user with access and secret access keys.
+* EC2 .pem key
 * Terraform
 
 ### Installation
 
 1. Clone the repo
- 
    ```sh
    git clone https://github.com/msdange/project_assignment_v0
    ```
- 
 
 <!-- USAGE -->
 ## Usage
