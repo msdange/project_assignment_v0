@@ -11,7 +11,6 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -35,13 +34,6 @@ This assignment is created to host a simple web application in AWS EC2 private i
 * EC2 .pem key
 * Terraform
 
-### Installation
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/msdange/project_assignment_v0
-   ```
-
 <!-- USAGE -->
 ## Usage
 
@@ -52,9 +44,13 @@ Hosting the web application involves three parts.
 The infrastructure is created in AWS using Terraform.
 
 1. Ensure you have configured IAM user credentials using command : aws configure
-2. cd into the cloned repository.
-3. Go to variables.tf file and change the values as per comments given and Save the file.
-4. Run the following commands in same order
+2. Clone the repo
+   ```sh
+   git clone https://github.com/msdange/project_assignment_v0
+   ```
+  and cd into the cloned repository.
+4. Go to variables.tf file and change the values as per comments given and Save the file.
+5. Run the following commands in same order
     - terraform init
     - terraform plan
     - terraform apply
