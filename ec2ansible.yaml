@@ -21,5 +21,5 @@
  
    - name: Copy HTML file
      copy:
-       src: /home/index.html  # ensure that index.html is copied to same path
+       src: /home/project_assignment_v0/index.html  # ensure that index.html is copied to same path
        dest: /var/www/html/index.html
