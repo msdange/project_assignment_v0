@@ -233,16 +233,16 @@ resource "aws_launch_configuration" "demo_config" {
 
   associate_public_ip_address = false
 
-  /*user_data = <<-EOF
+  user_data = <<-EOF
     #!/bin/bash
     sudo yum update -y
     sudo yum install -y httpd
     sudo systemctl enable httpd
     sudo systemctl start httpd  
     
-  EOF */
+  EOF 
 
-  user_data = filebase64("user_data.sh")
+  # user_data = filebase64("user_data.sh")
 
 
   root_block_device {
@@ -296,17 +296,15 @@ resource "aws_instance" "ansible_master" {
   vpc_security_group_ids = [aws_security_group.ALB_sg.id]
   #iam_instance_profile   = "ec2_profile"
 
-  /*
+  
   user_data = <<-EOF
               #!/bin/bash
               sudo yum update -y
               sudo yum install -y python3
               sudo yum install -y ansible
               EOF
-*/
 
-  user_data = filebase64("ansible_master.sh")
-
+ 
   tags = {
     Name = "ansible_master"
   }
