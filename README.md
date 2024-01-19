@@ -72,7 +72,9 @@ This is done using ansible.
     - sudo vi ec2key.pem and add key
     - chmod 600 ec2key.pem
 4. Run the ansible playbook using the below command
-    - ansible-playbook -i inventory.ini ec2ansible.yml
+    ```sh
+    - ansible-playbook -i inventory.ini ec2ansible.yaml
+    ```
 5. Open LB DNS URL in web browser to see your ansible playbook ouput.
 
 ### Part 3: Destroy the application after testing to save the cost
