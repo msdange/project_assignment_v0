@@ -1,0 +1,25 @@
+---
+- name: web application install and start services
+  hosts: all 
+  become: true
+  
+  tasks:
+   - name: Update package cache (for Amazon Linux)
+     ansible.builtin.command:
+      cmd: yum makecache
+     when:
+       - ansible_distribution == 'Amazon'
+       - ansible_pkg_mgr == 'yum'
+
+   - name: Install Nginx (for Amazon Linux)
+     ansible.builtin.package:
+       name: nginx
+       state: present
+     when:
+       - ansible_distribution == 'Amazon'
+       - ansible_pkg_mgr == 'yum'
+ 
+   - name: Copy HTML file
+     copy:
+       src: /home/index.html  # ensure that index.html is copied to same path
+       dest: /var/www/html/index.html
