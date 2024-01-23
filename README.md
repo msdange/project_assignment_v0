@@ -31,7 +31,6 @@ This assignment is created to host a simple web application in AWS EC2 private i
 
 * AWS account
 * IAM user with access and secret access keys.
-* EC2 .pem key
 * Terraform
 
 <!-- USAGE -->
@@ -61,21 +60,8 @@ The infrastructure is created in AWS using Terraform.
 
 This is done using ansible.
 
-1. Go to AWS console > EC2 > select 'ansible_master' instance and click on connect
-2. Note private ips of private ec2 instances and note alb host name (can be taken from 1st step)
-3. Connect using EC2 instance connect and execute following commands
-    - sudo su
-    - cd /home
-    - git clone https://github.com/msdange/project_assignment_v0
-    - Go to project_assignment_v0 folder > open inventory.ini file > make changes as mentioned in file comments
-    - create .pem key file so that ansible_master instance can ssh into private instance
-    - sudo vi ec2key.pem and add key
-    - chmod 600 ec2key.pem
-4. Run the ansible playbook using the below command
-    ```sh
-    - ansible-playbook -i inventory.ini ec2ansible.yaml
-    ```
-5. Open LB DNS URL in web browser to see your ansible playbook ouput.
+1. Through user data script we are executing ansible playbook which will install and start our web application.
+2. Open LB DNS URL in web browser to see your ansible playbook ouput.
 
 ### Part 3: Destroy the application after testing to save the cost
 

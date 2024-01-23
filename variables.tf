@@ -9,7 +9,31 @@ variable "ami_id" {
 variable "instance_type" {
   default = "t2.micro" # can be changed as per requirement
 }
-variable "instance_key_name" {
-  description = "The name of the SSH key to associate to the instance. Note that the key must exist already."
-  default     = "Mrini-Nov 2023" #add your key name here
+
+variable "vpc_cidr_block" {
+  default = "10.0.0.0/16" #to be changed if range is not available in your account
+}
+
+variable "public_subnet_cidr_block_A" {
+  default     = "10.0.0.0/24"  #to be changed if range is not available in your account
+}
+
+variable "private_subnet_cidr_block_A" {
+  default     = "10.0.16.0/20" #to be changed if range is not available in your account
+}
+
+variable "public_subnet_cidr_block_B" {
+  default     = "10.0.1.0/24"  #to be changed if range is not available in your account
+}
+
+variable "private_subnet_cidr_block_B" {
+  default     = "10.0.32.0/20" #to be changed if range is not available in your account
+}
+
+variable "availability_zones_A" {
+  default     = "us-east-1a"
+}
+
+variable "availability_zones_B" {
+  default     = "us-east-1b"
 }

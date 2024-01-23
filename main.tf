@@ -4,7 +4,7 @@ provider "aws" {
 
 /* --------- VPC --------- */
 resource "aws_vpc" "demovpc" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
   tags = {
@@ -18,8 +18,8 @@ resource "aws_vpc" "demovpc" {
 
 resource "aws_subnet" "privatesubnetA" {
   vpc_id            = aws_vpc.demovpc.id
-  cidr_block        = "10.0.16.0/20"
-  availability_zone = "us-east-1a"
+  cidr_block        = var.private_subnet_cidr_block_A 
+  availability_zone = var.availability_zones_A 
 
   tags = {
     Name = "privatesubnetA"
@@ -28,8 +28,8 @@ resource "aws_subnet" "privatesubnetA" {
 
 resource "aws_subnet" "privatesubnetB" {
   vpc_id            = aws_vpc.demovpc.id
-  cidr_block        = "10.0.32.0/20"
-  availability_zone = "us-east-1b"
+  cidr_block        = var.private_subnet_cidr_block_B 
+  availability_zone = var.availability_zones_B 
 
   tags = {
     Name = "privatesubnetB"
@@ -40,8 +40,8 @@ resource "aws_subnet" "privatesubnetB" {
 
 resource "aws_subnet" "publicsubnetA" {
   vpc_id                  = aws_vpc.demovpc.id
-  cidr_block              = "10.0.0.0/24"
-  availability_zone       = "us-east-1a"
+  cidr_block              = var.public_subnet_cidr_block_A 
+  availability_zone       = var.availability_zones_A 
   map_public_ip_on_launch = true
 
   tags = {
@@ -51,8 +51,8 @@ resource "aws_subnet" "publicsubnetA" {
 
 resource "aws_subnet" "publicsubnetB" {
   vpc_id                  = aws_vpc.demovpc.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1b"
+  cidr_block              = var.public_subnet_cidr_block_B 
+  availability_zone       = var.availability_zones_B 
   map_public_ip_on_launch = true
 
   tags = {
@@ -204,24 +204,14 @@ resource "aws_lb_listener" "demo_front_end" {
 
 resource "aws_launch_configuration" "demo_config" {
   name                 = "demo_config"
-  image_id             = var.ami_id    
+  image_id             = var.ami_id
   instance_type        = var.instance_type
-  key_name             = var.instance_key_name
   security_groups      = [aws_security_group.ec2_sg.id]
   iam_instance_profile = "ec2_profile"
 
   associate_public_ip_address = false
 
-  user_data = <<-EOF
-    #!/bin/bash
-    sudo yum update -y
-    sudo yum install -y httpd
-    sudo systemctl enable httpd
-    sudo systemctl start httpd  
-    
-  EOF 
-
-  # user_data = filebase64("user_data.sh")
+  user_data = filebase64("user_data.sh")
 
   root_block_device {
     volume_type = "gp2"
@@ -263,27 +253,6 @@ resource "aws_autoscaling_group" "demo_asg" {
   lifecycle {
     create_before_destroy = true
   }
-}
-
-resource "aws_instance" "ansible_master" {
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
-  key_name               = var.instance_key_name
-  subnet_id              = aws_subnet.publicsubnetA.id
-  vpc_security_group_ids = [aws_security_group.ALB_sg.id]
-    
-  user_data = <<-EOF
-              #!/bin/bash
-              sudo yum update -y
-              sudo yum install -y python3
-              sudo yum install -y ansible
-              EOF
-
- 
-  tags = {
-    Name = "ansible_master"
-  }
-
 }
 
 /* ---- Load balancer SG ---- */
@@ -367,6 +336,7 @@ resource "aws_security_group" "ec2_sg" {
 }
 
 /* ---- ec2 instance profile role ---- */
+
 
 resource "aws_iam_instance_profile" "demo-iam-profile" {
   name = "ec2_profile"
