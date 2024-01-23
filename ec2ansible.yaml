@@ -1,25 +1,32 @@
----
-- name: web application install and start services
-  hosts: all 
-  become: true
-  
+- hosts: localhost
+  become: yes
+  become_user: root
   tasks:
-   - name: Update package cache (for Amazon Linux)
-     ansible.builtin.command:
-      cmd: yum makecache
-     when:
-       - ansible_distribution == 'Amazon'
-       - ansible_pkg_mgr == 'yum'
+    - name: Update package manager cache
+      yum:
+        update_cache: yes
 
-   - name: Install Nginx (for Amazon Linux)
-     ansible.builtin.package:
-       name: nginx
-       state: present
-     when:
-       - ansible_distribution == 'Amazon'
-       - ansible_pkg_mgr == 'yum'
- 
-   - name: Copy HTML file
-     copy:
-       src: /home/project_assignment_v0/index.html  # ensure that index.html is copied to same path
-       dest: /var/www/html/index.html
+    - name: Install Apache web server
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start Apache service
+      service:
+        name: httpd
+        state: started
+
+    - name: Enable Apache service
+      service:
+        name: httpd
+        enabled: yes
+
+    - name: copy index.html file
+      copy:
+        src: /etc/ansible/index.html
+        dest: /var/www/html/index.html
+
+    - name: Restart httpd service
+      service:
+        name: httpd
+        state: restarted
