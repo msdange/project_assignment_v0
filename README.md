@@ -49,7 +49,7 @@ The infrastructure is created in AWS using Terraform.
    ```
 3. cd into the cloned repository.
 4. Go to variables.tf file and change the values as per comments given and Save the file.
-5. Verify if given cidr blocks in main.tf are available in the AWS account. If not available update cidr blocks.
+5. Verify if given cidr blocks in main.tf are available in the AWS account. If not available, update the cidr blocks.
 6. Run the following commands in same order
     - terraform init
     - terraform plan
