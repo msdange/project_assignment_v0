@@ -14,5 +14,5 @@ terraform {
     bucket = "demo-tfe-backend" #replace with your S3 bucket if want to enable bckend
     region = "us-east-1"        #add region of your choice
   }
-}
 */
+}
