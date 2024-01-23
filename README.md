@@ -66,5 +66,6 @@ This is done using ansible.
 ### Part 3: Destroy the application after testing to save the cost
 
 Run the below command to tear down the application.
-
-    - terrafrom destroy
+```sh
+    terrafrom destroy
+```
