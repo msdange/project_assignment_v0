@@ -36,9 +36,9 @@ This assignment is created to host a simple web application in AWS EC2 private i
 <!-- USAGE -->
 ## Usage
 
-Hosting the web application involves three parts.
+Hosting the web application involves two main steps.
 
-### Part 1: Creating the Infrastructure
+### Step 1: Creating the Infrastructure
 
 The infrastructure is created in AWS using Terraform.
 
@@ -56,14 +56,14 @@ The infrastructure is created in AWS using Terraform.
     - terraform apply
  7. Above step will provision the required infrastructure and provides the ALB hostname as the output. Note the hostname.
 
-### Part 2: Installing the application
+### Step 2: Installing the application
 
 This is done using ansible.
 
 1. Through user data script we are executing ansible playbook which will install and start our web application.
 2. Open LB DNS URL in web browser to see your ansible playbook ouput.
 
-### Part 3: Destroy the application after testing to save the cost
+### Step 3: Destroy the application after testing to save the cost
 
 Run the below command to tear down the application.
 ```sh
